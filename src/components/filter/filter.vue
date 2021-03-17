@@ -6,6 +6,7 @@
           :value="value" 
           :checked="value == onShow" 
           @click="onClickFilter(value)"
+          @input="$emit('update:modelValue', value)"
         >
         <div class="filter__description">        
           <span>{{ value + " " }}</span>
@@ -25,16 +26,11 @@ export default {
       list: ['Все', 'Активные', 'Выполненные']
     }
   },
-  emits: {
-    click: () => {
-      return true
-    }
-  }, 
+  emits: ['update:modelValue'],
   
   methods: {
     onClickFilter(value) {
       this.onShow = value
-      this.$emit('click', value)
     },
     counterTask(value) {
       switch(value){

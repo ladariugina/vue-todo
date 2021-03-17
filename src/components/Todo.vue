@@ -1,20 +1,7 @@
 <template>
   <div class="todo">
     <h1 class="todo__title">Важные дела:</h1>
-
-    <div class="filter">
-      <label class="filter__btn" v-for="(value, index) in list" :key="index">
-        <input type="radio" :value="value" :checked="value == onShow" @click="onClickFilter(value)">
-        <div class="filter__description">        
-          <span>{{ value + " " }}</span>
-          <span>({{ counterTask(value) }})</span>
-        </div>
-      </label>
-    </div>
-
-
-    <Filter v-on:click="onShow" />
-
+    <Filter v-model.capitalize="onShow" />
     <Item v-for="item in tasks" :key="item.id" :item="item" />
     <InputItem />
     <button class="todo__btn" @click.prevent="onRemoveAllDoneTask">
@@ -26,7 +13,7 @@
 <script>
 import InputItem from './input-item/InputItem'
 import Item from './item/Item'
-import Filter from './filter'
+import Filter from './filter/filter'
 
 export default {
   name: 'Todo',
@@ -63,20 +50,6 @@ export default {
       this.$store.commit('TASK_REMOVE_ALL_DONE_ITEM')
       this.$store.commit('TASK_SYNC_ITEMS')
     },
-    onClickFilter(value) {
-      this.onShow = value
-    },
-    counterTask(value) {
-      switch(value){
-        case 'Все': return this.$store.state.task.items.length
-        case 'Активные': return this.$store.getters.isItemsActive.length
-        case 'Выполненные': return this.$store.getters.isItemsDone.length
-        default: return this.$store.state.task.items.length
-      }
-    },
-    handleClick(value) {
-      this.onShow = value
-    }
   }
 }
 </script>
