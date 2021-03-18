@@ -1,16 +1,32 @@
 <template>
-    <div class="section">
-        <p class="section__title">Репозитории на github.com</p>
-        <div class="repositories">
-            <a href="" class="repositories__name">
-                repo.name
-                <div class="repositories__info">
-                    <span class=""></span>
-                    <span class="info__star"></span>
-                    <span class="info__fork"></span>
-                    <span></span>
-                </div>
-            </a>
+    <div class="preloader" v-if="isLoadingRepo">
+        <img src="../../../../../public/img/preloader.svg">
+    </div>
+    <div v-else>
+        <div class="section" v-if="isErrorRepo">
+            <p class="section__title">Репозитории на github.com</p>
+            <div class="repositories" v-if="repoList.length > 0">
+                <a href="" class="repositories__name" v-for="repo in repoList" :key="repo.id">
+                {{ repo.name }}
+                    <div class="repositories__info">
+                        <span class="info__logo" :class="classLanguage(repo.language)">{{ repo.language }}</span>
+                        <span class="info__star">{{ repo.stargazers_count }}</span>
+                        <span class="info__fork">{{ repo.forks }}</span>
+                        <span></span>
+                    </div>
+                </a>
+            </div>
+            <div class="error" v-else>
+                <img src="../../../../../public/img/frame.svg">
+                <p>Репозитории отсутствуют</p>
+                <p>Добавьте как минимум один репозиторий на <a href='https://github.com/'>github.com</a></p>
+            </div>
+        </div>
+
+        <div class="error" v-else>
+            <img src="../../../../../public/img/frame.svg">
+            <p>Что-то пошло не так...</p>
+            <p>Попробуйте <a href=''>загрузить</a> ещё раз</p>
         </div>
     </div>
 </template>
@@ -19,11 +35,33 @@
 
 
 export default {
-  name: 'Repositories',
-//   mounted() {
-//     this.$store.dispatch('ABOUT_FETCH_REPO')
-//   },
-
+    name: 'Repositories',
+    mounted() {
+        this.$store.dispatch('ABOUT_FETCH_REPO')
+    },
+    computed: {
+        repoList() {
+            return this.$store.state.about.repoList
+        },
+        isErrorRepo() {
+            return !this.$store.state.about.isErrorRepo
+        },
+        isLoadingRepo() {
+            return this.$store.state.about.isLoadingRepo
+        },
+    },
+    methods: {
+        classLanguage(language) {
+            console.log(language)
+            switch(language) {
+                case "HTML": return "info__logo--html"
+                case "CSS": return "info__logo--css"
+                case "JS": return "info__logo--js"
+                case "Vue": return "info__logo--vue"
+                default: return "info__logo--html"
+            }
+        }
+    }
 }
 </script>
 
@@ -53,8 +91,8 @@ export default {
 
 .repositories
     list-style-type: none
+    height: 200px
     overflow: auto
-    height: 300px
     padding: 0 5px 0 0
 
 
@@ -62,7 +100,9 @@ export default {
         display: flex
         font: 400 12px/14px Roboto, arial, helvetica, sans-serif
         color: #999999
-        margin-top: 4px
+        margin-top: 6px
+        position: relative
+        padding-left: 25px
 
 
     &__name
@@ -73,6 +113,7 @@ export default {
         padding: 6px 12px
         border: solid 1px #ccc
         border-radius: 10px
+        margin-bottom: 10px
 
 .language
     position: relative
@@ -81,6 +122,7 @@ export default {
 
 
 .info__logo
+    margin: 0 16px 0 0
 
     &--html::before
         background: #e00000
@@ -91,9 +133,13 @@ export default {
     &--js::before
         background: #ffc700
 
+    &--vue::before
+        background: #2c3e50
+
     &--html,
     &--css,
-    &--js
+    &--js,
+    &--vue
 
         &::before
             content: ''
@@ -114,7 +160,7 @@ export default {
 
         &::before
             content: ''
-            //background: url(img/star.svg)
+            background: url(../../../../../public/img/star.svg)
             height: 16px
             width: 16px
             position: absolute
@@ -129,12 +175,20 @@ export default {
 
         &::before
             content: ''
-            //background: url(img/fork.svg)
+            background: url(../../../../../public/img/fork.svg)
             height: 15px
             width: 11px
             position: absolute
             left: 0
             bottom: 0
 
+.error
+    font: 500 14px/16px Roboto, arial, helvetica, sans-serif
+    text-align: center
+
+.preloader
+    display: flex
+    justify-content: center
+    align-items: center
 
 </style>

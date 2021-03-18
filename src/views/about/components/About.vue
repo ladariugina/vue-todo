@@ -10,7 +10,7 @@ import Header from './header/Header'
 import Repositories from './repositories/Repositories'
 
 export default {
-  name: 'About',
+    name: 'About',
     components: {
         Header,
         Repositories

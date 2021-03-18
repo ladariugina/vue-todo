@@ -1,9 +1,12 @@
 import axios from 'axios'
+import { Octokit } from '@octokit/rest'
+
+const octokit = new Octokit();
 
 const state = {
     isLoadingUser: true,
-    isErrorUser: false,
     isLoadingRepo: true,
+    isErrorUser: false,
     isErrorRepo: false,
     repoList: [],
     userData: [],
@@ -26,20 +29,22 @@ const actions = {
             })
         })
     },
-    // ABOUT_FETCH_REPO({ commit }) {
-    //     return new Promise((resolve, reject) => {
-    //       axios
-    //         .get('https://api.github.com/search/repositories')
-    //         .then(response => {
-    //           commit('ABOUT_SET_REPO', response.data)
-    //           resolve(response)
-    //         })
-    //         .catch(error => {
-    //           commit('ABOUT_ERROR_REPO')
-    //           reject(error)
-    //         })
-    //     })
-    // },
+
+    ABOUT_FETCH_REPO({ commit }) {
+        return new Promise((resolve, reject) => {
+            octokit.repos.listForUser({
+                username: 'ladariugina'
+            })
+            .then(response => {
+                commit('ABOUT_SET_REPO', response.data)
+                resolve(response)
+            })
+            .catch(error => {
+                commit('ABOUT_ERROR_REPO')
+                reject(error)
+            })
+        })
+    }
 }
 
 const mutations = {
@@ -50,17 +55,15 @@ const mutations = {
     ABOUT_ERROR_USER(state) {
         state.isErrorUser = !state.isErrorUser
     },
-    // https://octokit.github.io/rest.js/v17
     
-    // ABOUT_SET_REPO(state, repoList) {
-    //     state.repoList = repoList
-    //     console.log(repoList)
-    //     state.isLoadingRepo = !state.isLoadingRepo
-    // },
-    // ABOUT_ERROR_REPO(state) {
-    //     console.log('ERROR')
-    //     state.isErrorRepo = !state.isErrorRepo
-    // },
+    ABOUT_SET_REPO(state, repoList) {
+        state.repoList = repoList
+        state.isLoadingRepo = !state.isLoadingRepo
+    },
+    ABOUT_ERROR_REPO(state) {
+        console.log('ERROR')
+        state.isErrorRepo = !state.isErrorRepo
+    },
 }
   
 export default {
