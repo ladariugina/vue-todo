@@ -9,7 +9,7 @@
         v-model="value"
       >
     </div>
-    <button class="button-add" @click.prevent="addNewTask">+</button>
+    <button class="button-add" @click.prevent="addNewTask" :disabled="disableBtn">+</button>
   </div>
 
 </template>
@@ -22,6 +22,11 @@ export default {
     return {
       value: '',
     }
+  },
+  computed: {
+    disableBtn() {
+      return !this.value.length > 0
+    },
   },
 
   methods: {
@@ -79,4 +84,9 @@ export default {
 .button-add:hover {
   background-color: #c51162;
 }
+
+.button-add:disabled {
+  opacity: .6;
+}
+
 </style>

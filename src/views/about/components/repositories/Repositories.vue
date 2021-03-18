@@ -1,44 +1,33 @@
 <template>
-    <div class="preloader" v-if="isLoadingRepo">
-        <img src="../../../../../public/img/preloader.svg">
-    </div>
-    <div v-else>
-        <div class="section" v-if="isErrorRepo">
-            <p class="section__title">Репозитории на github.com</p>
-            <div class="repositories" v-if="repoList.length > 0">
-                <a href="" class="repositories__name" v-for="repo in repoList" :key="repo.id">
-                {{ repo.name }}
-                    <div class="repositories__info">
-                        <span class="info__logo" :class="classLanguage(repo.language)">{{ repo.language }}</span>
-                        <span class="info__star">{{ repo.stargazers_count }}</span>
-                        <span class="info__fork">{{ repo.forks }}</span>
-                        <span></span>
-                    </div>
-                </a>
-            </div>
-            <div class="error" v-else>
-                <img src="../../../../../public/img/frame.svg">
-                <p>Репозитории отсутствуют</p>
-                <p>Добавьте как минимум один репозиторий на <a href='https://github.com/'>github.com</a></p>
+    <div class="section" v-if="isErrorRepo && isErrorUser">
+        <p class="section__title">Репозитории на github.com</p>
+        <div class="repositories" v-if="repoList.length > 0">
+            <div class="repositories__item" v-for="repo in repoList" :key="repo.id">
+                <a class="repositories__name" :htef="html_url">{{ repo.name }}</a>
+                <div class="repositories__info">
+                    <span class="info__logo" :class="classLanguage(repo.language)">{{ repo.language }}</span>
+                    <span class="info__star">{{ repo.stargazers_count }}</span>
+                    <span class="info__fork">{{ repo.forks }}</span>
+                </div>
             </div>
         </div>
-
         <div class="error" v-else>
             <img src="../../../../../public/img/frame.svg">
-            <p>Что-то пошло не так...</p>
-            <p>Попробуйте <a href=''>загрузить</a> ещё раз</p>
+            <p>Репозитории отсутствуют</p>
+            <p>Добавьте как минимум один репозиторий на <a href='https://github.com/'>github.com</a></p>
         </div>
+    </div>
+
+    <div class="error" v-else>
+        <img src="../../../../../public/img/frame.svg">
+        <p>Что-то пошло не так...</p>
+        <p>Попробуйте <a href=''>загрузить</a> ещё раз</p>
     </div>
 </template>
 
 <script>
-
-
 export default {
     name: 'Repositories',
-    mounted() {
-        this.$store.dispatch('ABOUT_FETCH_REPO')
-    },
     computed: {
         repoList() {
             return this.$store.state.about.repoList
@@ -46,20 +35,13 @@ export default {
         isErrorRepo() {
             return !this.$store.state.about.isErrorRepo
         },
-        isLoadingRepo() {
-            return this.$store.state.about.isLoadingRepo
+        isErrorUser() {
+            return !this.$store.state.about.isErrorUser
         },
     },
     methods: {
         classLanguage(language) {
-            console.log(language)
-            switch(language) {
-                case "HTML": return "info__logo--html"
-                case "CSS": return "info__logo--css"
-                case "JS": return "info__logo--js"
-                case "Vue": return "info__logo--vue"
-                default: return "info__logo--html"
-            }
+            return 'info__logo--' + language.toLowerCase()
         }
     }
 }
@@ -95,6 +77,10 @@ export default {
     overflow: auto
     padding: 0 5px 0 0
 
+    &__name
+
+        &:hover
+            opacity: .8
 
     &__info
         display: flex
@@ -105,7 +91,7 @@ export default {
         padding-left: 25px
 
 
-    &__name
+    &__item
         display: block
         font: 500 14px/16px Roboto, arial, helvetica, sans-serif
         text-decoration: none
@@ -114,6 +100,7 @@ export default {
         border: solid 1px #ccc
         border-radius: 10px
         margin-bottom: 10px
+        cursor: pointer
 
 .language
     position: relative

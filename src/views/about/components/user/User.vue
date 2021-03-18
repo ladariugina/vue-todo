@@ -1,36 +1,25 @@
 <template>
-    <div class="preloader" v-if="isLoadingUser">
-        <img src="../../../../../public/img/preloader.svg">
+    <div class="header" v-if="isErrorUser">
+        <img :src="userData.avatar_url" class="header__img"/>
+        <div>
+            <p class="header__title">{{ userData.name }}</p>
+            <p class="header__subtitle">{{ userData.bio }}</p>
+            <div class="header__contacts">
+                <img src=""/>
+                <p class="header__contacts--data">Ladu3112@gmail.com</p>
+            </div>
+            <div class="header__phone">
+                <img src=""/>
+                <p class="header__contacts--data">+7-963-731-43-20</p>
+            </div>
+        </div>
+        <div class="header__links">
+            <a :href="userData.html_url" class="header__link-github"></a>
+            <a href="https://linkedin.com" class="header__link-linkedin"></a>
+            <a href="https://www.facebook.com" class="header__link-facebook"></a>
+            <a href="https://vk.com/id_lada_ber" class="header__link-vk"></a>
+        </div>
     </div>
-
-    <div v-else>
-        <div class="header" v-if="isErrorUser">
-            <img :src="userData.avatar_url" class="header__img"/>
-            <div>
-                <p class="header__title">{{ userData.name }}</p>
-                <p class="header__subtitle">{{ userData.bio }}</p>
-                <div class="header__contacts">
-                    <img src=""/>
-                    <p class="header__contacts--data">Ladu3112@gmail.com</p>
-                </div>
-                <div class="header__phone">
-                    <img src=""/>
-                    <p class="header__contacts--data">+7-963-731-43-20</p>
-                </div>
-            </div>
-            <div class="header__link">
-                <a :href="userData.html_url" class="header__link--github"></a>
-                <a href="https://linkedin.com" class="header__link--linkedin"></a>
-                <a href="https://www.facebook.com" class="header__link--facebook"></a>
-                <a href="https://vk.com/id_lada_ber" class="header__link--vk"></a>
-            </div>
-        </div>
-
-        <div class="error" v-else>
-            <p>Что-то пошло не так...</p>
-            <p>Попробуйте <a href=''>загрузить</a> ещё раз</p>
-        </div>
-</div>
 </template>
 
 <script>
@@ -43,14 +32,7 @@ export default {
         isErrorUser() {
             return !this.$store.state.about.isErrorUser
         },
-        isLoadingUser() {
-            return this.$store.state.about.isLoadingUser
-        },
     },
-    mounted() {
-    this.$store.dispatch('ABOUT_FETCH_USER')
-    },
-
 }
 </script>
 
@@ -101,37 +83,41 @@ export default {
         margin-bottom: 45px
 
 
-    &__link
+    &__links
         display: flex
         justify-content: flex-end
         align-items: flex-end
 
-        &--github,
-        &--facebook,
-        &--linkedin,
-        &--vk
-            display: block
-            width: 24px
-            height: 24px
-            margin-right: 8px
+    &__link-github,
+    &__link-facebook,
+    &__link-linkedin,
+    &__link-vk
+        display: block
+        width: 24px
+        height: 24px
+        margin-right: 8px
 
             
-        &--github
+        &__link-github
             background: url(../../../../../public/img/github.svg)
 
-        &--facebook
+        &__link-facebook
            background: url(../../../../../public/img/facebook.svg)
 
-        &--linkedin
+        &__link-linkedin
             background: url(../../../../../public/img/linkedin.svg)
 
-        &--vk
+        &__link-vk
             background: url(../../../../../public/img/vk.svg)
 
 
-.error
+.user-error
     font: 500 14px/16px Roboto, arial, helvetica, sans-serif
     text-align: center
+    height: 190px
+    border-radius: 9px
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)
+
 
 .preloader
     display: flex

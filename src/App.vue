@@ -2,7 +2,7 @@
   <div>
     <div class='nav'>
       <router-link to='/todo' class="link" active-class="link--active">Todo</router-link>
-      <router-link to='/about' class="link" active-class="link--active">About</router-link>
+      <router-link to='/' class="link" active-class="link--active">About</router-link>
     </div>
     <router-view></router-view>
   </div>

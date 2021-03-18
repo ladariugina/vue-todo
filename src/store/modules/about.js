@@ -4,8 +4,8 @@ import { Octokit } from '@octokit/rest'
 const octokit = new Octokit();
 
 const state = {
-    isLoadingUser: true,
-    isLoadingRepo: true,
+    isPreloader: true,
+    isLoadedData: false,
     isErrorUser: false,
     isErrorRepo: false,
     repoList: [],
@@ -21,10 +21,12 @@ const actions = {
             .get('https://api.github.com/users/ladariugina')
             .then(response => {
               commit('ABOUT_SET_USER', response.data)
+              commit('STOP_PRELOADER')
               resolve(response)
             })
             .catch(error => {
-              commit('ABOUT_SET_USER')
+              commit('STOP_PRELOADER')  
+              commit('ABOUT_ERROR_USER')
               reject(error)
             })
         })
@@ -50,20 +52,23 @@ const actions = {
 const mutations = {
     ABOUT_SET_USER(state, userData) {
         state.userData = userData
-        state.isLoadingUser = !state.isLoadingUser
+        state.isLoadedData = true
     },
     ABOUT_ERROR_USER(state) {
-        state.isErrorUser = !state.isErrorUser
+        state.isErrorUser = true
     },
     
+
     ABOUT_SET_REPO(state, repoList) {
         state.repoList = repoList
-        state.isLoadingRepo = !state.isLoadingRepo
     },
     ABOUT_ERROR_REPO(state) {
-        console.log('ERROR')
-        state.isErrorRepo = !state.isErrorRepo
+        state.isErrorRepo = true
     },
+
+    STOP_PRELOADER(state) {
+        state.isPreloader = false
+      },
 }
   
 export default {
