@@ -1,46 +1,43 @@
 <template>
   <div class="input-wrap">
     <div>
-      <input 
-        type="text" 
-        name="task" 
-        placeholder="Добавить задание" 
+      <input
+        type="text"
+        name="task"
+        placeholder="Добавить задание"
         class="input"
         v-model="value"
-      >
+      />
     </div>
-    <button class="button-add" @click.prevent="addNewTask" :disabled="disableBtn">+</button>
+    <button
+      class="button-add"
+      @click.prevent="addNewTask"
+      :disabled="!value.length > 0"
+    >
+      +
+    </button>
   </div>
-
 </template>
 
 <script>
-
 export default {
-  name: 'InputItem',
+  name: "InputItem",
   data() {
     return {
-      value: '',
-    }
+      value: "",
+    };
   },
-  computed: {
-    disableBtn() {
-      return !this.value.length > 0
-    },
-  },
-
   methods: {
     addNewTask() {
-      this.$store.commit('TASK_ADD', this.value)
-      this.value = ''
-      this.$store.commit('TASK_SYNC_ITEMS')
+      this.$store.commit("TASK_ADD", this.value);
+      this.value = "";
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 .input-wrap {
   display: flex;
@@ -69,8 +66,11 @@ export default {
   border-radius: 100%;
   border: 1px solid #f50057;
   cursor: pointer;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
 .button-add:focus {
@@ -78,7 +78,8 @@ export default {
 }
 
 .button-add:active {
-  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%),
+    0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
 }
 
 .button-add:hover {
@@ -86,7 +87,6 @@ export default {
 }
 
 .button-add:disabled {
-  opacity: .6;
+  opacity: 0.6;
 }
-
 </style>

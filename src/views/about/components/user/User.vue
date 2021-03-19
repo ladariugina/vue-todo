@@ -1,41 +1,40 @@
 <template>
-    <div class="header" v-if="isErrorUser">
-        <img :src="userData.avatar_url" class="header__img"/>
-        <div>
-            <p class="header__title">{{ userData.name }}</p>
-            <p class="header__subtitle">{{ userData.bio }}</p>
-            <div class="header__contacts">
-                <img src=""/>
-                <p class="header__contacts--data">Ladu3112@gmail.com</p>
-            </div>
-            <div class="header__phone">
-                <img src=""/>
-                <p class="header__contacts--data">+7-963-731-43-20</p>
-            </div>
-        </div>
-        <div class="header__links">
-            <a :href="userData.html_url" class="header__link-github"></a>
-            <a href="https://linkedin.com" class="header__link-linkedin"></a>
-            <a href="https://www.facebook.com" class="header__link-facebook"></a>
-            <a href="https://vk.com/id_lada_ber" class="header__link-vk"></a>
-        </div>
+  <div class="header" v-if="isErrorUser">
+    <img :src="userData.avatar_url" class="header__img" />
+    <div>
+      <p class="header__title">{{ userData.name }}</p>
+      <p class="header__subtitle">{{ userData.bio }}</p>
+      <div class="header__contacts">
+        <img src="" />
+        <p class="header__contacts--data">Ladu3112@gmail.com</p>
+      </div>
+      <div class="header__phone">
+        <img src="" />
+        <p class="header__contacts--data">+7-963-731-43-20</p>
+      </div>
     </div>
+    <div class="header__links">
+      <a :href="userData.html_url" class="header__link-github"></a>
+      <a href="https://linkedin.com" class="header__link-linkedin"></a>
+      <a href="https://www.facebook.com" class="header__link-facebook"></a>
+      <a href="https://vk.com/id_lada_ber" class="header__link-vk"></a>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Header',
-    computed: {
-        userData() {
-            return this.$store.state.about.userData
-        },
-        isErrorUser() {
-            return !this.$store.state.about.isErrorUser
-        },
+  name: "Header",
+  computed: {
+    userData() {
+      return this.$store.state.about.userData;
     },
-}
+    isErrorUser() {
+      return !this.$store.state.about.isErrorUser;
+    },
+  },
+};
 </script>
-
 
 <style lang="sass" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap')
@@ -62,7 +61,7 @@ export default {
         font: 700 28px Roboto, arial, helvetica, sans-serif
         margin: 0 0 12px
 
-    &__subtitle 
+    &__subtitle
         font: 400 12px/14px Roboto, arial, helvetica, sans-serif
         color: #999999
         margin: 0 0 14px
@@ -75,9 +74,9 @@ export default {
         &--data
             font: 400 12px/14px Roboto, arial, helvetica, sans-serif
             color: #999999
-            margin: 0 0 0 4px   
+            margin: 0 0 0 4px
 
-    
+
     &__phone
         display: flex
         margin-bottom: 45px
@@ -97,18 +96,18 @@ export default {
         height: 24px
         margin-right: 8px
 
-            
+
         &__link-github
-            background: url(../../../../../public/img/github.svg)
+            background: url(/img/github.svg)
 
         &__link-facebook
-           background: url(../../../../../public/img/facebook.svg)
+           background: url(/img/facebook.svg)
 
         &__link-linkedin
-            background: url(../../../../../public/img/linkedin.svg)
+            background: url(/img/linkedin.svg)
 
         &__link-vk
-            background: url(../../../../../public/img/vk.svg)
+            background: url(/img/vk.svg)
 
 
 .user-error
@@ -123,5 +122,4 @@ export default {
     display: flex
     justify-content: center
     align-items: center
-
 </style>

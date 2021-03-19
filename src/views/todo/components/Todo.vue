@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     <h1 class="todo__title">Важные дела:</h1>
-    <Filter v-model.capitalize="onShow" />
+    <Filter v-model="onShow" :list="list" />
     <Item v-for="item in tasks" :key="item.id" :item="item" />
     <InputItem />
     <button class="todo__btn" @click.prevent="onRemoveAllDoneTask">
@@ -11,47 +11,50 @@
 </template>
 
 <script>
-import InputItem from './input-item/InputItem'
-import Item from './item/Item'
-import Filter from './filter/filter'
+import InputItem from "./input-item/InputItem";
+import Item from "./item/Item";
+import Filter from "./filter/filter";
 
 export default {
-  name: 'Todo',
+  name: "Todo",
   components: {
     InputItem,
     Item,
-    Filter
+    Filter,
   },
 
   data() {
     return {
-      onShow: '',
-      list: ['Все', 'Активные', 'Выполненные']
-    }
+      onShow: "Все",
+      list: ["Все", "Активные", "Выполненные"],
+    };
   },
 
   mounted() {
-    this.$store.dispatch('TASK_FETCH_ITEMS')
+    this.$store.dispatch("TASK_FETCH_ITEMS");
   },
 
   computed: {
     tasks() {
-      switch(this.onShow){
-        case 'Все': return this.$store.state.task.items
-        case 'Активные': return this.$store.getters.isItemsActive
-        case 'Выполненные': return this.$store.getters.isItemsDone
-        default: return this.$store.state.task.items
+      switch (this.onShow) {
+        case "Все":
+          return this.$store.state.task.items;
+        case "Активные":
+          return this.$store.getters.isItemsActive;
+        case "Выполненные":
+          return this.$store.getters.isItemsDone;
+        default:
+          return this.$store.state.task.items;
       }
     },
   },
 
   methods: {
     onRemoveAllDoneTask() {
-      this.$store.commit('TASK_REMOVE_ALL_DONE_ITEM')
-      this.$store.commit('TASK_SYNC_ITEMS')
+      this.$store.commit("TASK_REMOVE_ALL_DONE_ITEM");
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="sass">
@@ -111,17 +114,16 @@ export default {
       background: rgba(0, 0, 0, 0.05)
       border-radius: 23px
       padding: 5px 10px
-      
+
 
 
 input[type="radio"]
   display: none
 
-  &:checked 
-    ~ 
+  &:checked
+    ~
       .filter__description
         background: #f50057
         border-radius: 23px
         color: #fff
-
 </style>

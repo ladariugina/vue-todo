@@ -1,44 +1,41 @@
 <template>
-    <div class="wrap" v-if="isPreloader">
-        <div class="preloader">
-            <img src="../../../../public/img/preloader.svg">
-        </div>
+  <div class="wrap" v-if="isPreloader">
+    <div class="preloader">
+      <img src="/img/preloader.svg" />
     </div>
-    <div class="wrap" v-else>
-        <User />
-        <Repositories />
-    </div>
-
+  </div>
+  <div class="wrap" v-else>
+    <User />
+    <Repositories />
+  </div>
 </template>
 
 <script>
-import User from './user/User'
-import Repositories from './repositories/Repositories'
-import store from '../../../store/index'
+import User from "./user/User";
+import Repositories from "./repositories/Repositories";
+import store from "../../../store/index";
 
 export default {
-    name: 'About',
-    components: {
-        User,
-        Repositories
+  name: "About",
+  components: {
+    User,
+    Repositories,
+  },
+  computed: {
+    isPreloader() {
+      return this.$store.state.about.isPreloader;
     },
-    computed: {
-        isPreloader() {
-            return this.$store.state.about.isPreloader
-        }
-    },
-    beforeRouteEnter(to, from, next) {
-
-        if (!store.state.about.isLoadedData) {
-            store.dispatch('ABOUT_FETCH_USER').then(() => {
-                store.dispatch('ABOUT_FETCH_REPO').then(() => {
-                    next()
-                })
-            })
-        }
-        else next()
-    },
-}
+  },
+  beforeRouteEnter(to, from, next) {
+    if (!store.state.about.isLoadedData) {
+      store.dispatch("ABOUT_FETCH_USER").then(() => {
+        store.dispatch("ABOUT_FETCH_REPO").then(() => {
+          next();
+        });
+      });
+    } else next();
+  },
+};
 </script>
 
 <style lang="sass" scoped>

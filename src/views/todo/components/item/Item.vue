@@ -1,18 +1,23 @@
 <template>
   <div class="item-wrap">
     <div class="item">
-      <input type="checkbox" :checked="item.isDone" value="Y" @change="onClickDone">
-      <div class="item__task" :class="{ active: item.isDone }">{{ item.value }}</div>
+      <input
+        type="checkbox"
+        :checked="item.isDone"
+        value="Y"
+        @change="onClickDone"
+      />
+      <div class="item__task" :class="{ active: item.isDone }">
+        {{ item.value }}
+      </div>
     </div>
     <div class="item-delete" @click.prevent="onRemoveTask"></div>
   </div>
-
 </template>
 
 <script>
-
 export default {
-  name: 'Item',
+  name: "Item",
   props: {
     item: {
       type: Object,
@@ -22,19 +27,17 @@ export default {
 
   methods: {
     onClickDone() {
-      this.$store.commit('TASK_CHANGE_IS_DONE', this.item.id)
-      this.$store.commit('TASK_SYNC_ITEMS')
+      this.$store.commit("TASK_CHANGE_IS_DONE", this.item.id);
     },
     onRemoveTask() {
-      this.$store.commit('TASK_REMOVE_ITEM', this.item)
-      this.$store.commit('TASK_SYNC_ITEMS')
+      this.$store.commit("TASK_REMOVE_ITEM", this.item);
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 .item-wrap {
   display: flex;
@@ -52,7 +55,7 @@ export default {
 }
 
 .active {
-text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 .item-delete {
@@ -63,7 +66,7 @@ text-decoration: line-through;
 }
 
 .item-delete::after {
-  content: '';
+  content: "";
   width: 2px;
   height: 17px;
   background: #f50057;
@@ -74,7 +77,7 @@ text-decoration: line-through;
 }
 
 .item-delete::before {
-  content: '';
+  content: "";
   width: 2px;
   height: 17px;
   background: #f50057;
@@ -83,5 +86,4 @@ text-decoration: line-through;
   top: 0;
   left: 0;
 }
-
 </style>
