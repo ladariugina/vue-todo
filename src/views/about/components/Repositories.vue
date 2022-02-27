@@ -3,7 +3,7 @@
     <p class="section__title">Репозитории на github.com</p>
     <div class="repositories" v-if="repoList.length > 0">
       <div class="repositories__item" v-for="repo in repoList" :key="repo.id">
-        <a class="repositories__name" :htef="html_url">{{ repo.name }}</a>
+        <a class="repositories__name" :href="repoLink">{{ repo.name }}</a>
         <div class="repositories__info">
           <span class="info__logo" :class="classLanguage(repo.language)">{{
             repo.language
@@ -42,6 +42,9 @@ export default {
     },
     isErrorUser() {
       return !this.$store.state.about.isErrorUser;
+    },
+    repoLink() {
+      return this.$store.state.about.userData.html_url;
     },
   },
   methods: {
@@ -122,25 +125,20 @@ export default {
     &--css::before
         background: #0094ff
 
-    &--js::before
+    &--javascript::before
         background: #ffc700
 
     &--vue::before
-        background: #2c3e50
+        background: #41b883
 
-    &--html,
-    &--css,
-    &--js,
-    &--vue
-
-        &::before
-            content: ''
-            border-radius: 50%
-            height: 16px
-            width: 16px
-            position: absolute
-            left: 0
-            bottom: 0
+    &::before
+        content: ''
+        border-radius: 50%
+        height: 16px
+        width: 16px
+        position: absolute
+        left: 0
+        bottom: 0
 
 
 .info

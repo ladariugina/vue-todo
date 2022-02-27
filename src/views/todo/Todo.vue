@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import InputItem from "./input-item/InputItem";
-import Item from "./item/Item";
-import Filter from "./filter/filter";
+import InputItem from "./components/InputItem.vue";
+import Item from "./components/Item.vue";
+import Filter from "./components/filter.vue";
 
 export default {
   name: "Todo",
@@ -63,27 +63,28 @@ export default {
 .todo
   font: 400 16px/18px Roboto, arial, helvetica, sans-serif
   color: #333333
-  margin: auto
-  max-width: 500px
+  margin: 0 auto
+  width: 500px
   padding: 20px
   border-radius: 9px
   box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%)
+  background: #FFFFFF
 
   &__title
     font: 700 28px Roboto, arial, helvetica, sans-serif
     text-align: center
-    color: #f50057
+    color: #356EFF
     margin: 0 0 20px
 
 
   &__btn
     color: #fff
-    background-color: #f50057
+    background-color: #356EFF
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)
     min-width: 64px
     box-sizing: border-box
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
-    border: 4px solid #f50057
+    border: 4px solid #356EFF
     border-radius: 4px
     text-transform: uppercase
     cursor: pointer
@@ -123,7 +124,7 @@ input[type="radio"]
   &:checked
     ~
       .filter__description
-        background: #f50057
+        background: #356EFF
         border-radius: 23px
         color: #fff
 </style>

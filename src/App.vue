@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div class='nav'>
       <router-link to='/todo' class="link" active-class="link--active">Todo</router-link>
       <router-link to='/' class="link" active-class="link--active">About</router-link>
@@ -15,6 +15,7 @@
 .nav
   display: flex
   justify-content: center
+  margin-top: 25px
 
 .link
   display: flex
@@ -33,6 +34,12 @@
     opacity: 0.7
 
   &--active
-    background: #f50057
+    background: #356EFF
     color: white
+
+.wrapper
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  background: #F1EFEF
 </style>

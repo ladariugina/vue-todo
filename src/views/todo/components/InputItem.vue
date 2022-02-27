@@ -5,6 +5,7 @@
         type="text"
         name="task"
         placeholder="Добавить задание"
+        autocomplete="off"
         class="input"
         v-model="value"
       />
@@ -29,7 +30,7 @@ export default {
   },
   methods: {
     addNewTask() {
-      this.$store.commit("TASK_ADD", this.value);
+      this.$store.commit("TASK_ADD_NEW", this.value);
       this.value = "";
     },
   },
@@ -60,11 +61,11 @@ export default {
 .button-add {
   font: 400 22px/24px Roboto, arial, helvetica, sans-serif;
   color: #fff;
-  background-color: #f50057;
+  background-color: #356EFF;
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  border: 1px solid #f50057;
+  border: 1px solid #356EFF;
   cursor: pointer;
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
     0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);

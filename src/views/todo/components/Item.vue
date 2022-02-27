@@ -1,6 +1,6 @@
 <template>
   <div class="item-wrap">
-    <div class="item">
+    <label class="item">
       <input
         type="checkbox"
         :checked="item.isDone"
@@ -10,7 +10,7 @@
       <div class="item__task" :class="{ active: item.isDone }">
         {{ item.value }}
       </div>
-    </div>
+    </label>
     <div class="item-delete" @click.prevent="onRemoveTask"></div>
   </div>
 </template>
@@ -69,7 +69,7 @@ export default {
   content: "";
   width: 2px;
   height: 17px;
-  background: #f50057;
+  background: #356EFF;
   transform: rotate(45deg);
   position: absolute;
   top: 0;
@@ -80,7 +80,7 @@ export default {
   content: "";
   width: 2px;
   height: 17px;
-  background: #f50057;
+  background: #356EFF;
   transform: rotate(-45deg);
   position: absolute;
   top: 0;

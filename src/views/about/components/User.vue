@@ -5,11 +5,11 @@
       <p class="header__title">{{ userData.name }}</p>
       <p class="header__subtitle">{{ userData.bio }}</p>
       <div class="header__contacts">
-        <img src="" />
+        <img src="/img/arroba.svg" />
         <p class="header__contacts--data">Ladu3112@gmail.com</p>
       </div>
       <div class="header__phone">
-        <img src="" />
+        <img src="/img/telegram.svg" />
         <p class="header__contacts--data">+7-963-731-43-20</p>
       </div>
     </div>
@@ -97,17 +97,17 @@ export default {
         margin-right: 8px
 
 
-        &__link-github
-            background: url(/img/github.svg)
+    &__link-github
+        background: url(/img/github.svg)
 
-        &__link-facebook
-           background: url(/img/facebook.svg)
+    &__link-facebook
+        background: url(/img/facebook.svg)
 
-        &__link-linkedin
-            background: url(/img/linkedin.svg)
+    &__link-linkedin
+        background: url(/img/linkedin.svg)
 
-        &__link-vk
-            background: url(/img/vk.svg)
+    &__link-vk
+        background: url(/img/vk.svg)
 
 
 .user-error
